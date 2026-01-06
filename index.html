@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SafeGate | Panimalar Emergency Response</title>
+
+    <!-- Meta Tags -->
+    <meta
+      name="description"
+      content="Ultimate campus emergency response system for Panimalar Engineering College"
+    />
+    <meta name="theme-color" content="#2d6ae3" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Leaflet CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>"
+    />
+  </head>
+  <body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+      <!-- Header -->
+      <header class="glass-header">
+        <div class="header-content">
+          <div class="logo">
+            <div class="logo-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="logo-text">
+              <h1 class="gradient-text">SafeGate</h1>
+              <p class="header-subtitle">
+                Panimalar Engineering College Emergency Response
+              </p>
+            </div>
+          </div>
+
+          <nav class="nav-links">
+            <a href="#" class="nav-link active"
+              ><i class="fas fa-home"></i> <span>Home</span></a
+            >
+            <a href="#" class="nav-link" id="dashboardBtn"
+              ><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a
+            >
+            <a href="#" class="nav-link" id="emergencyLogBtn"
+              ><i class="fas fa-history"></i> <span>History</span></a
+            >
+          </nav>
+
+          <div class="user-section">
+            <div class="user-avatar" id="userAvatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <button class="login-btn" id="loginBtn">
+              <i class="fab fa-google"></i> <span>Sign In</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Emergency Status Bar -->
+        <div class="emergency-status-bar">
+          <div class="status-item">
+            <i class="fas fa-shield-check status-icon"></i>
+            <span class="status-text">System Active</span>
+          </div>
+          <div class="status-item">
+            <i class="fas fa-users status-icon"></i>
+            <span class="status-text">12 Responders Online</span>
+          </div>
+          <div class="status-item">
+            <i class="fas fa-clock status-icon"></i>
+            <span class="status-text">Avg Response: 2.3 min</span>
+          </div>
+          <div class="status-item">
+            <i class="fas fa-check-circle status-icon"></i>
+            <span class="status-text">100% Success Rate</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Left Panel -->
+        <div class="left-panel">
+          <!-- Emergency SOS Button -->
+          <div class="sos-container">
+            <div class="sos-glow"></div>
+            <div class="sos-glow"></div>
+            <div class="sos-glow"></div>
+
+            <div class="sos-button" id="sosButton">
+              <div class="sos-inner">
+                <div class="sos-icon">
+                  <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="sos-text">
+                  <span class="sos-label">EMERGENCY SOS</span>
+                  <span class="sos-sub">Press for Immediate Help</span>
+                </div>
+              </div>
+              <div class="sos-pulse"></div>
+              <div class="sos-pulse"></div>
+              <div class="sos-pulse"></div>
+            </div>
+
+            <div class="quick-emergencies">
+              <div class="emergency-quick" data-type="medical">
+                <div class="quick-icon">
+                  <i class="fas fa-heart-pulse"></i>
+                </div>
+                <span class="quick-text">Medical</span>
+              </div>
+              <div class="emergency-quick" data-type="fire">
+                <div class="quick-icon">
+                  <i class="fas fa-fire"></i>
+                </div>
+                <span class="quick-text">Fire</span>
+              </div>
+              <div class="emergency-quick" data-type="security">
+                <div class="quick-icon">
+                  <i class="fas fa-shield-alt"></i>
+                </div>
+                <span class="quick-text">Security</span>
+              </div>
+              <div class="emergency-quick" data-type="women">
+                <div class="quick-icon">
+                  <i class="fas fa-person-dress"></i>
+                </div>
+                <span class="quick-text">Women Safety</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Women Safety Button -->
+          <div class="women-safety-section">
+            <button class="women-safety-btn" id="womenSafetyBtn">
+              <div class="women-safety-icon">
+                <i class="fas fa-person-dress"></i>
+              </div>
+              <div class="women-safety-text">
+                <span class="women-safety-title">Women Safety SOS</span>
+                <span class="women-safety-sub">Discreet & Immediate Alert</span>
+              </div>
+            </button>
+          </div>
+
+          <!-- Campus Locations -->
+          <div class="locations-section">
+            <h3 class="section-title">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Key Campus Locations</span>
+            </h3>
+
+            <div class="location-grid">
+              <div
+                class="location-card"
+                data-location="13.054278,80.072444"
+                data-name="EEE & Boys Hostel 5-Block"
+              >
+                <div class="location-icon hostel">
+                  <i class="fas fa-building"></i>
+                </div>
+                <div class="location-info">
+                  <h4 class="location-name">EEE & Hostel 5-B</h4>
+                  <p class="location-desc">Academic & Residential</p>
+                </div>
+                <button class="location-action" title="View on Google Maps">
+                  <i class="fas fa-external-link-alt"></i>
+                </button>
+              </div>
+
+              <div
+                class="location-card"
+                data-location="13.053861,80.074083"
+                data-name="Playground"
+              >
+                <div class="location-icon sports">
+                  <i class="fas fa-futbol"></i>
+                </div>
+                <div class="location-info">
+                  <h4 class="location-name">Sports Ground</h4>
+                  <p class="location-desc">Recreation Area</p>
+                </div>
+                <button class="location-action" title="View on Google Maps">
+                  <i class="fas fa-external-link-alt"></i>
+                </button>
+              </div>
+
+              <div
+                class="location-card"
+                data-location="13.053494,80.074242"
+                data-name="PIT Mess"
+              >
+                <div class="location-icon dining">
+                  <i class="fas fa-utensils"></i>
+                </div>
+                <div class="location-info">
+                  <h4 class="location-name">Food Mess</h4>
+                  <p class="location-desc">Dining Facility</p>
+                </div>
+                <button class="location-action" title="View on Google Maps">
+                  <i class="fas fa-external-link-alt"></i>
+                </button>
+              </div>
+
+              <div
+                class="location-card"
+                data-location="13.049092,80.075076"
+                data-name="Administrative Block"
+              >
+                <div class="location-icon admin">
+                  <i class="fas fa-landmark"></i>
+                </div>
+                <div class="location-info">
+                  <h4 class="location-name">Admin Block</h4>
+                  <p class="location-desc">Administration</p>
+                </div>
+                <button class="location-action" title="View on Google Maps">
+                  <i class="fas fa-external-link-alt"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Panel - Map -->
+        <div class="right-panel">
+          <!-- Map Container -->
+          <div class="map-container">
+            <div class="map-header">
+              <h3 class="map-title">
+                <i class="fas fa-map"></i>
+                <span>Campus Interactive Map</span>
+              </h3>
+              <div class="map-controls">
+                <button class="map-btn" id="locateBtn" title="Locate Me">
+                  <i class="fas fa-location-crosshairs"></i>
+                </button>
+                <button class="map-btn" id="zoomIn" title="Zoom In">
+                  <i class="fas fa-plus"></i>
+                </button>
+                <button class="map-btn" id="zoomOut" title="Zoom Out">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div id="map"></div>
+
+            <!-- Map Legend -->
+            <div class="map-legend">
+              <div class="legend-item">
+                <span class="legend-color user"></span>
+                <span class="legend-text">Your Location</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-color emergency"></span>
+                <span class="legend-text">Emergency Zones</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-color building"></span>
+                <span class="legend-text">Key Buildings</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Updates -->
+          <div class="live-updates">
+            <div class="updates-header">
+              <h3 class="updates-title">
+                <i class="fas fa-broadcast-tower"></i>
+                <span>Live Updates</span>
+              </h3>
+              <div class="updates-badge">
+                <span class="badge-text">Live</span>
+              </div>
+            </div>
+
+            <div class="updates-list" id="updatesList">
+              <div class="update-item">
+                <div class="update-icon success">
+                  <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="update-content">
+                  <p class="update-message">All systems operational</p>
+                  <small class="update-time">Just now</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Proximity Alert -->
+            <div class="proximity-alert" id="proximityAlert">
+              <div class="alert-icon">
+                <i class="fas fa-walking"></i>
+              </div>
+              <div class="alert-content">
+                <strong class="alert-title">Responder Approaching!</strong>
+                <p class="alert-distance" id="distanceAlert">50m away</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Emergency Modal -->
+    <div class="modal-overlay" id="emergencyModal">
+      <div class="emergency-modal" id="draggableModal">
+        <div class="modal-header draggable-header">
+          <div class="modal-title">
+            <div class="title-icon">
+              <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div class="title-text">
+              <h3 class="modal-title-text">Emergency Assistance Request</h3>
+              <p class="modal-subtitle">We're here to help you</p>
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button class="modal-close" id="closeModal" title="Close">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="modal-content">
+          <!-- Step 1: Emergency Type -->
+          <div class="modal-step active" id="step1">
+            <div class="step-header">
+              <div class="step-number active">1</div>
+              <div class="step-info">
+                <h4 class="step-title">Select Emergency Type</h4>
+                <p class="step-subtitle">
+                  Choose the type of emergency you're facing
+                </p>
+              </div>
+            </div>
+
+            <div class="emergency-types-grid">
+              <!-- Medical Emergency -->
+              <div class="emergency-type-card" data-type="medical">
+                <div class="type-icon medical">
+                  <i class="fas fa-heart-pulse"></i>
+                </div>
+                <div class="type-info">
+                  <h5 class="type-title">Medical Emergency</h5>
+                  <p class="type-desc">
+                    Health issues, injuries, medical assistance
+                  </p>
+                </div>
+                <div class="type-select">
+                  <div class="select-circle"></div>
+                </div>
+              </div>
+
+              <!-- Fire Emergency -->
+              <div class="emergency-type-card" data-type="fire">
+                <div class="type-icon fire">
+                  <i class="fas fa-fire"></i>
+                </div>
+                <div class="type-info">
+                  <h5 class="type-title">Fire Emergency</h5>
+                  <p class="type-desc">
+                    Dorms, labs, electrical fires, explosions
+                  </p>
+                </div>
+                <div class="type-select">
+                  <div class="select-circle"></div>
+                </div>
+              </div>
+
+              <!-- Security Threat -->
+              <div class="emergency-type-card" data-type="security">
+                <div class="type-icon security">
+                  <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="type-info">
+                  <h5 class="type-title">Security Threat</h5>
+                  <p class="type-desc">
+                    Assaults, theft, active threats, intruders
+                  </p>
+                </div>
+                <div class="type-select">
+                  <div class="select-circle"></div>
+                </div>
+              </div>
+
+              <!-- Women Safety -->
+              <div class="emergency-type-card" data-type="women">
+                <div class="type-icon women">
+                  <i class="fas fa-person-dress"></i>
+                </div>
+                <div class="type-info">
+                  <h5 class="type-title">Women Safety</h5>
+                  <p class="type-desc">
+                    Discreet alert for harassment or threats
+                  </p>
+                </div>
+                <div class="type-select">
+                  <div class="select-circle"></div>
+                </div>
+              </div>
+
+              <!-- Road Accident -->
+              <div class="emergency-type-card" data-type="accident">
+                <div class="type-icon accident">
+                  <i class="fas fa-car-crash"></i>
+                </div>
+                <div class="type-info">
+                  <h5 class="type-title">Road Accident</h5>
+                  <p class="type-desc">
+                    Vehicle collisions, pedestrian accidents
+                  </p>
+                </div>
+                <div class="type-select">
+                  <div class="select-circle"></div>
+                </div>
+              </div>
+
+              <!-- Natural Disaster -->
+              <div class="emergency-type-card" data-type="natural">
+                <div class="type-icon natural">
+                  <i class="fas fa-mountain"></i>
+                </div>
+                <div class="type-info">
+                  <h5 class="type-title">Natural Disaster</h5>
+                  <p class="type-desc">Earthquakes, floods, severe weather</p>
+                </div>
+                <div class="type-select">
+                  <div class="select-circle"></div>
+                </div>
+              </div>
+
+              <!-- Chemical Accident -->
+              <div class="emergency-type-card" data-type="chemical">
+                <div class="type-icon chemical">
+                  <i class="fas fa-flask"></i>
+                </div>
+                <div class="type-info">
+                  <h5 class="type-title">Chemical Accident</h5>
+                  <p class="type-desc">
+                    Lab spills, exposures, hazardous materials
+                  </p>
+                </div>
+                <div class="type-select">
+                  <div class="select-circle"></div>
+                </div>
+              </div>
+
+              <!-- Other Emergency -->
+              <div class="emergency-type-card" data-type="other">
+                <div class="type-icon other">
+                  <i class="fas fa-question-circle"></i>
+                </div>
+                <div class="type-info">
+                  <h5 class="type-title">Other Emergency</h5>
+                  <p class="type-desc">Any other urgent situation</p>
+                </div>
+                <div class="type-select">
+                  <div class="select-circle"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-actions">
+              <button class="btn-next" id="nextStep1">
+                <span>Next Step</span>
+                <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: Location Confirmation -->
+          <div class="modal-step" id="step2">
+            <div class="step-header">
+              <div class="step-number">2</div>
+              <div class="step-info">
+                <h4 class="step-title">Confirm Your Location</h4>
+                <p class="step-subtitle">
+                  We've detected your location. Confirm or adjust
+                </p>
+              </div>
+            </div>
+
+            <div class="location-step">
+              <div class="mini-map" id="miniMap"></div>
+
+              <div class="location-info">
+                <div class="info-item">
+                  <div class="info-icon">
+                    <i class="fas fa-crosshairs"></i>
+                  </div>
+                  <div class="info-content">
+                    <small class="info-label">Accuracy</small>
+                    <p class="info-value" id="accuracyText">High (5m)</p>
+                  </div>
+                </div>
+                <div class="info-item">
+                  <div class="info-icon">
+                    <i class="fas fa-sync-alt"></i>
+                  </div>
+                  <div class="info-content">
+                    <small class="info-label">Last Updated</small>
+                    <p class="info-value" id="lastUpdate">Just now</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="location-actions">
+                <button class="btn-refresh" id="refreshLocation">
+                  <i class="fas fa-sync-alt"></i>
+                  <span>Refresh Location</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="step-actions">
+              <button class="btn-back" id="backStep2">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back</span>
+              </button>
+              <button class="btn-next" id="nextStep2">
+                <span>Next Step</span>
+                <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 3: Details & Contacts -->
+          <div class="modal-step" id="step3">
+            <div class="step-header">
+              <div class="step-number">3</div>
+              <div class="step-info">
+                <h4 class="step-title">Emergency Details</h4>
+                <p class="step-subtitle">
+                  Provide additional information for responders
+                </p>
+              </div>
+            </div>
+
+            <div class="details-step">
+              <div class="form-group">
+                <label for="emergencyDescription" class="form-label">
+                  <i class="fas fa-comment-alt"></i>
+                  <span>Emergency Description</span>
+                </label>
+                <textarea
+                  id="emergencyDescription"
+                  class="form-textarea"
+                  placeholder="Describe the emergency situation in detail..."
+                ></textarea>
+                <div class="char-count">
+                  <span id="charCount">0</span>/500 characters
+                </div>
+              </div>
+
+              <div class="notification-settings">
+                <h5 class="notification-title">
+                  <i class="fas fa-bell"></i>
+                  <span>Notification Methods</span>
+                </h5>
+
+                <div class="notification-option">
+                  <label class="checkbox-container">
+                    <input type="checkbox" id="smsNotify" checked />
+                    <span class="checkmark"></span>
+                    <div class="option-content">
+                      <div class="option-icon">
+                        <i class="fas fa-sms"></i>
+                      </div>
+                      <div class="option-text">
+                        <strong class="option-title">SMS Alert</strong>
+                        <small class="option-desc"
+                          >Send to emergency contacts</small
+                        >
+                      </div>
+                    </div>
+                  </label>
+                  <div class="contacts-list">
+                    <span class="contact-number">+91 7448325875</span>
+                    <span class="contact-number">+91 9445200978</span>
+                  </div>
+                </div>
+
+                <div class="notification-option">
+                  <label class="checkbox-container">
+                    <input type="checkbox" id="emailNotify" checked />
+                    <span class="checkmark"></span>
+                    <div class="option-content">
+                      <div class="option-icon">
+                        <i class="fas fa-envelope"></i>
+                      </div>
+                      <div class="option-text">
+                        <strong class="option-title">Email Alert</strong>
+                        <small class="option-desc">Send detailed report</small>
+                      </div>
+                    </div>
+                  </label>
+                  <div class="contacts-list">
+                    <span class="contact-email"
+                      >sunilkumarb200703@gmail.com</span
+                    >
+                  </div>
+                </div>
+
+                <div class="notification-option">
+                  <label class="checkbox-container">
+                    <input type="checkbox" id="callNotify" checked />
+                    <span class="checkmark"></span>
+                    <div class="option-content">
+                      <div class="option-icon">
+                        <i class="fas fa-phone-alt"></i>
+                      </div>
+                      <div class="option-text">
+                        <strong class="option-title">Auto Call</strong>
+                        <small class="option-desc"
+                          >Call nearest responder</small
+                        >
+                      </div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-actions">
+              <button class="btn-back" id="backStep3">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back</span>
+              </button>
+              <button class="btn-next" id="nextStep3">
+                <span>Next Step</span>
+                <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 4: Review & Submit -->
+          <div class="modal-step" id="step4">
+            <div class="step-header">
+              <div class="step-number">4</div>
+              <div class="step-info">
+                <h4 class="step-title">Review & Submit</h4>
+                <p class="step-subtitle">Confirm all details before sending</p>
+              </div>
+            </div>
+
+            <div class="review-step">
+              <div class="review-item">
+                <div class="review-label">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  <span>Emergency Type</span>
+                </div>
+                <div class="review-value" id="reviewType"></div>
+              </div>
+
+              <div class="review-item">
+                <div class="review-label">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>Location</span>
+                </div>
+                <div class="review-value" id="reviewLocation"></div>
+              </div>
+
+              <div class="review-item">
+                <div class="review-label">
+                  <i class="fas fa-file-alt"></i>
+                  <span>Description</span>
+                </div>
+                <div class="review-value" id="reviewDescription"></div>
+              </div>
+
+              <div class="review-item">
+                <div class="review-label">
+                  <i class="fas fa-bell"></i>
+                  <span>Notifications</span>
+                </div>
+                <div class="review-value" id="reviewNotifications"></div>
+              </div>
+
+              <div class="emergency-note">
+                <div class="note-icon">
+                  <i class="fas fa-info-circle"></i>
+                </div>
+                <div class="note-content">
+                  <strong class="note-title">Help is on the way!</strong>
+                  <p class="note-text">
+                    Your location will be shared with responders every 10
+                    seconds. Stay calm and safe.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-actions">
+              <button class="btn-back" id="backStep4">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back</span>
+              </button>
+              <button class="btn-submit" id="submitEmergency">
+                <i class="fas fa-paper-plane"></i>
+                <span>Send Emergency Alert</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 5: Success -->
+          <div class="modal-step" id="step5">
+            <div class="success-step">
+              <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <div class="success-content">
+                <h2 class="success-title">Emergency Successfully Reported!</h2>
+                <p class="success-message">
+                  Help is on the way. Emergency responders have been notified
+                  and are heading to your location.
+                </p>
+
+                <div class="success-details">
+                  <div class="detail-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <div>
+                      <strong>Security Team</strong>
+                      <p>Dispatched - 2.3 min ETA</p>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <i class="fas fa-heartbeat"></i>
+                    <div>
+                      <strong>Medical Support</strong>
+                      <p>On standby</p>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <i class="fas fa-location-dot"></i>
+                    <div>
+                      <strong>Live Location</strong>
+                      <p>Sharing every 10 seconds</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="emergency-contacts">
+                  <h4 class="contacts-title">
+                    <i class="fas fa-phone"></i>
+                    Emergency Contacts Notified:
+                  </h4>
+                  <div class="contact-list">
+                    <span class="contact-item">+91 7448325875</span>
+                    <span class="contact-item">+91 9445200978</span>
+                    <span class="contact-item"
+                      >sunilkumarb200703@gmail.com</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="success-actions">
+                <button class="btn-success" id="closeSuccess">
+                  <i class="fas fa-check"></i>
+                  <span>Close</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="modal-progress">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="progress-steps">
+            <span class="step-dot active"></span>
+            <span class="step-dot"></span>
+            <span class="step-dot"></span>
+            <span class="step-dot"></span>
+            <span class="step-dot"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+      <div class="login-modal">
+        <div class="login-header">
+          <div class="login-logo">
+            <div class="logo-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="logo-text">
+              <h2>SafeGate 3.0</h2>
+              <p>Emergency Response System</p>
+            </div>
+          </div>
+          <button class="modal-close" id="closeLogin">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="login-content">
+          <div class="login-hero">
+            <div class="hero-icon">
+              <i class="fas fa-user-shield"></i>
+            </div>
+            <h3 class="hero-title">Welcome to SafeGate</h3>
+            <p class="hero-subtitle">Your safety is our priority</p>
+          </div>
+
+          <button class="google-login-btn" id="googleLogin">
+            <div class="google-icon">
+              <i class="fab fa-google"></i>
+            </div>
+            <span class="google-text">Continue with Google</span>
+          </button>
+
+          <div class="divider">
+            <span class="divider-text">or</span>
+          </div>
+
+          <div class="email-login">
+            <div class="form-group">
+              <label for="loginEmail" class="form-label">
+                <i class="fas fa-envelope"></i>
+                <span>Email Address</span>
+              </label>
+              <input
+                type="email"
+                id="loginEmail"
+                class="form-input"
+                placeholder="student@panimalar.edu.in"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="loginPassword" class="form-label">
+                <i class="fas fa-lock"></i>
+                <span>Password</span>
+              </label>
+              <input
+                type="password"
+                id="loginPassword"
+                class="form-input"
+                placeholder="Enter your password"
+              />
+            </div>
+
+            <div class="form-options">
+              <label class="checkbox-container remember-me">
+                <input type="checkbox" id="rememberMe" />
+                <span class="checkmark"></span>
+                <span>Remember me</span>
+              </label>
+              <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+
+            <button class="login-submit" id="emailLogin">
+              <span>Sign In</span>
+            </button>
+          </div>
+
+          <div class="login-footer">
+            <p class="footer-text">
+              By continuing, you agree to our
+              <a href="#" class="footer-link">Terms</a> and
+              <a href="#" class="footer-link">Privacy Policy</a>
+            </p>
+            <p class="footer-text">
+              Don't have an account?
+              <a href="#" class="footer-link" id="showSignup">Sign up</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard Modal -->
+    <div class="modal-overlay dashboard-modal" id="dashboardModal">
+      <div class="dashboard-container">
+        <div class="dashboard-header">
+          <div class="dashboard-title">
+            <div class="dashboard-icon">
+              <i class="fas fa-tachometer-alt"></i>
+            </div>
+            <div class="dashboard-text">
+              <h2>Emergency Dashboard</h2>
+              <p>Real-time monitoring & statistics</p>
+            </div>
+          </div>
+          <button class="modal-close" id="closeDashboard">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="dashboard-content">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon medical">
+                <i class="fas fa-exclamation-triangle"></i>
+              </div>
+              <div class="stat-info">
+                <h3 id="activeEmergencies">0</h3>
+                <p>Active Emergencies</p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon security">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="stat-info">
+                <h3 id="activeResponders">12</h3>
+                <p>Responders Active</p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon fire">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="stat-info">
+                <h3 id="avgResponseTime">2.3</h3>
+                <p>Avg Response (min)</p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon success">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <div class="stat-info">
+                <h3 id="successRate">100%</h3>
+                <p>Success Rate</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="dashboard-section">
+              <div class="section-header">
+                <h3 class="section-title">
+                  <i class="fas fa-history"></i>
+                  <span>Recent Emergencies</span>
+                </h3>
+                <span class="section-badge">Live</span>
+              </div>
+              <div class="emergencies-list" id="emergenciesList">
+                <div class="empty-state">
+                  <i class="fas fa-check-circle"></i>
+                  <p>No active emergencies</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="dashboard-section">
+              <div class="section-header">
+                <h3 class="section-title">
+                  <i class="fas fa-user-shield"></i>
+                  <span>Response Teams</span>
+                </h3>
+              </div>
+              <div class="teams-list" id="teamsList">
+                <div class="team-item">
+                  <div class="team-icon medical">
+                    <i class="fas fa-heart-pulse"></i>
+                  </div>
+                  <div class="team-info">
+                    <strong>Medical Team Alpha</strong>
+                    <p>Status: Available</p>
+                  </div>
+                  <span class="team-status available">Online</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="notification-toast" id="notificationToast">
+      <div class="toast-content">
+        <div class="toast-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="toast-text">
+          <strong class="toast-title">Emergency Submitted!</strong>
+          <p class="toast-message" id="toastMessage">Help is on the way</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
